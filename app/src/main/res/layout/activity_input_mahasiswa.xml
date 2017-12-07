@@ -34,12 +34,28 @@
         android:layout_marginBottom="8dp"
         />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnSimpan"
-        android:text="simpan"
-        android:onClick="saveMhs"
-        />
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp" >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSimpan"
+            android:text="simpan"
+            android:onClick="saveMhs"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="batal"
+            android:onClick="batal" />
+
+    </LinearLayout>
 
 </LinearLayout>
