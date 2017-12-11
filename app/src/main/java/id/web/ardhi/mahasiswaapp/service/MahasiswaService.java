@@ -14,23 +14,30 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
- * Created by linuxluv on 08/11/17.
+ * interface MahasiswaService akan memetakan URL-URL web API
+ * ke method-method yang dapat digunakan untuk mengakses URL-URL tersebut
  */
 
 public interface MahasiswaService {
+    // untuk mengambil semua record data mahasiswa
     @GET("mahasiswa/all")
     Call<List<Mahasiswa>> getAllMhs();
 
+    // mengambil data mahasiswa berdasarkan NIM
     @GET("mahasiswa/{nim}")
     Call<Mahasiswa> getMhsByNim(@Path("nim") String nim);
 
+    // menambahkan data mahasiswa
     @Headers("Content-Type: application/json")
     @POST("mahasiswa/new")
     Call<ResponseBody> createMhs(@Body Mahasiswa mahasiswa);
 
+    // mengupdate data mahasiswa
+    @Headers("Content-Type: application/json")
     @PUT("mahasiswa/update/{old_nim}")
     Call<ResponseBody> updateMhs(@Path("old_nim") String oldNim, @Body Mahasiswa mahasiswa);
 
+    // menghapus data mahasiswa
     @DELETE("mahasiswa/{nim}")
     Call<ResponseBody> deleteMhs(@Path("nim") String nim);
 }

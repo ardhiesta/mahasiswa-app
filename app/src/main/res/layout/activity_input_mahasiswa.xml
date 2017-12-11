@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,51 +9,47 @@
     tools:context="id.web.ardhi.mahasiswaapp.InputMahasiswaActivity">
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/etNim"
-        android:hint="NIM"
-        android:layout_marginBottom="8dp"
-        />
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="NIM" />
+
+    <EditText
         android:id="@+id/etNama"
-        android:hint="Nama"
-        android:layout_marginBottom="8dp"
-        />
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etAlamat"
-        android:hint="Alamat"
-        android:minLines="3"
         android:layout_marginBottom="8dp"
-        />
+        android:hint="Nama" />
+
+    <EditText
+        android:id="@+id/etAlamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="Alamat"
+        android:minLines="3" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp" >
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
             android:id="@+id/btnSimpan"
-            android:text="simpan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:onClick="saveMhs"
-            />
+            android:text="simpan" />
 
         <Button
             android:layout_width="0dp"
-            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="batal"
-            android:onClick="batal" />
+            android:layout_weight="0.5"
+            android:onClick="batal"
+            android:text="batal" />
 
     </LinearLayout>
 

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 import id.web.ardhi.mahasiswaapp.model.Mahasiswa;
@@ -26,10 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
+
+    // BASE_URL_API memuat alamat aplikasi web API yang dibuat menggunakan SLim Framework
+    // ganti ip address sesuai dengan konfigurasi di laptop anda
     public static final String BASE_API_URL = "http://192.168.57.1/web/api_kuliah/index.php/";
+
+    // variabel mListView digunakan untuk menghubungkan komponen ListViewdi layout dengan activity
     private ListView mListView;
+
+    // mahasiswas memuat data seluruh mahasiswa dalam bentuk Array object Mahasiswa
     List<Mahasiswa> mahasiswas;
-    MahasiswaService kuliahService;
+
+    // mahasiswaService adalah instansiasi dari interface MahasiswaService
+    MahasiswaService mahasiswaService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,35 +59,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // membuat object Retrofit, memasukkan URL web API
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        kuliahService = retrofit.create(MahasiswaService.class);
+        // instansiasi MahasiswaService
+        mahasiswaService = retrofit.create(MahasiswaService.class);
 
-        loadDataMhs(kuliahService);
+        // memuat data mahasiswa dari web API
+        loadDataMhs(mahasiswaService);
     }
 
-    private void loadDataMhs(MahasiswaService kuliahService){
+    private void loadDataMhs(MahasiswaService kuliahService) {
+        // array untuk menampung data mahasiswa yang didapat dari web API
         mahasiswas = new ArrayList<>();
 
+        // memanggil web API untuk mengambil semua record data mahasiswa
         Call<List<Mahasiswa>> listMhs = kuliahService.getAllMhs();
 
+        // arrayListNamaMhs adalah array berisi String yang menampung nama mahasiswa
+        // nama-nama mahasiswa akan ditampilkan pada ListView
         final List<String> arrayListNamaMhs = new ArrayList<>();
         listMhs.enqueue(new Callback<List<Mahasiswa>>() {
             @Override
             public void onResponse(Call<List<Mahasiswa>> call, Response<List<Mahasiswa>> response) {
-                for (int i=0; i<response.body().size(); i++){
+                // parsing response
+                for (int i = 0; i < response.body().size(); i++) {
+                    // mengambil nama-nama mahasiswa, dimasukkan ke arrayListNamaMhs
                     arrayListNamaMhs.add(response.body().get(i).getNama());
 
+                    // membuat object mahasiswa untuk setiap record data mahasiswa yang didapat
                     Mahasiswa mahasiswa = response.body().get(i);
 
+                    // mengisi array mahasiswas dengan object mahasiswa yang mewakili 1 record data mahasiswa
                     mahasiswas.add(mahasiswa);
                 }
 
+                // membuat ArrayAdapter untuk memuat data nama-nama mahasiswa ke ListView
                 ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,
                         android.R.layout.simple_list_item_1, arrayListNamaMhs);
+                // mengatur adapter ListView
                 mListView.setAdapter(adapter);
 
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Mahasiswa>> call, Throwable t) {
-                System.out.println("");
+                // menampilkan error ke log
+                Log.w("ERROR", t.getMessage());
             }
         });
     }
@@ -105,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             // Get extra data included in the Intent
             String message = intent.getStringExtra("Message");
             Log.d("receiver", "Got message: " + message);
-            loadDataMhs(kuliahService);
+            loadDataMhs(mahasiswaService);
         }
     };
 }

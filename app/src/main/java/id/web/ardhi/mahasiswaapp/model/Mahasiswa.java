@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by linuxluv on 08/11/17.
+ * class ini meakili object Mahasiswa, isinya getter dan setter
+ * implements Parcelable supaya bisa dikirim antar activity melalui putExtra
  */
 
 public class Mahasiswa implements Parcelable {
